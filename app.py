@@ -4,7 +4,7 @@ from openai import OpenAI
 
 client= OpenAI(
     base_url="https://router.huggingface.co/hf-inference/models/codellama/CodeLlama-34b-Instruct-hf/v1",
-    api_key="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"
+    api_key="hf_lYPFWFocyJjgAdBsiByXPiliGrdNMKEWYff"
 )
 
 """history_msg:
