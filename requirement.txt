@@ -1,4 +1,0 @@
-openai==1.68.2
-gradio==5.22.0
-dotenv==0.9.9
-logging==0.4.9.6
