@@ -2,23 +2,24 @@
 Project: AI Chatbot
 Date: 04/25
 Author: James W.
-Desc: CodeLlama-34b-Instruct-hf knowledge cutoff is December 31, 2022
+Desc: deepseek-ai/DeepSeek-R1 knowledge cutoff is July 2024.
 """
 
 import gradio as gr
 import os
-from openai import OpenAI
+from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
 import logging
 
+#logging module. logger is an instance of Logger . level: INFO, DEBUG, ERROR
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 load_dotenv()
 api_key = os.getenv("HUGGINGFACE_API_KEY") 
 
-client = OpenAI(
-    base_url="https://router.huggingface.co/hf-inference/models/codellama/CodeLlama-34b-Instruct-hf/v1",
+client = InferenceClient(
+    provider="fireworks-ai",
     api_key=api_key
 )
 
@@ -40,9 +41,9 @@ def respond(current_msg,
     messages.append({"role": "user", "content": current_msg})
     response = ""
     try:
-        chat_completion_output = client.chat.completions.create(
+        chat_completion_output = client.chat_completion(
             messages=messages,
-            model="codellama/CodeLlama-34b-Instruct-hf",
+            model="deepseek-ai/DeepSeek-R1",
             max_tokens=max_tokens,
             temperature=temperature,
             stream=False
@@ -65,7 +66,7 @@ def respond(current_msg,
 
 chatbot = gr.ChatInterface(fn=respond,
                         type="messages",
-                        save_history=True,
+                        #save_history=True,
                         additional_inputs=[
                             gr.Slider(minimum=1, maximum=2048, value=256,
                                       step=1, label="Max output tokens"),
