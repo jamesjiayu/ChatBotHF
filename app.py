@@ -1,6 +1,6 @@
 """
 Project: AI Chatbot
-Date: 03/25
+Date: 04/25
 Author: James W.
 Desc: CodeLlama-34b-Instruct-hf knowledge cutoff is December 31, 2022
 """
@@ -10,12 +10,12 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 import logging
-#logging is module, including functions(getLogger,basicConfig) and classes
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-api_key = os.getenv("HUGGINGFACE_API_KEY") #get your huggingface api key and put it in .env
+api_key = os.getenv("HUGGINGFACE_API_KEY") 
 
 client = OpenAI(
     base_url="https://router.huggingface.co/hf-inference/models/codellama/CodeLlama-34b-Instruct-hf/v1",
@@ -65,6 +65,7 @@ def respond(current_msg,
 
 chatbot = gr.ChatInterface(fn=respond,
                         type="messages",
+                        save_history=True,
                         additional_inputs=[
                             gr.Slider(minimum=1, maximum=2048, value=256,
                                       step=1, label="Max output tokens"),
