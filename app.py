@@ -4,22 +4,20 @@ Date: 04/25
 Author: James W.
 Desc: deepseek-ai/DeepSeek-R1 knowledge cutoff is July 2024.
 """
-
-import gradio as gr
 import os
-from huggingface_hub import InferenceClient
-from dotenv import load_dotenv
 import logging
+import gradio as gr
+from my_test import OpenAI
+from dotenv import load_dotenv
 
-#logging module. logger is an instance of Logger . level: INFO, DEBUG, ERROR
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-api_key = os.getenv("HUGGINGFACE_API_KEY") 
+api_key = os.getenv("OPENAI_API_KEY") 
 
-client = InferenceClient(
-    provider="fireworks-ai",
+client = OpenAI(
+    provider="nebius",
     api_key=api_key
 )
 
